@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   main:
     banner-mode: off
     log-startup-info: off

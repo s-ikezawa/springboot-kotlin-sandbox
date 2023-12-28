@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <property name="TIME_ZONE" value="Asia/Tokyo" />
+    <property name="TIMESTAMP_PATTERN" value="yyyy-MM-dd'T'HH:mm:ss.SSS'+09:00'" />
+    <property name="SEPARATOR" value="UNIX" />
+
+    <springProfile name="!local">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <timeZone>${TIME_ZONE}</timeZone>
+                <timestampPattern>${TIMESTAMP_PATTERN}</timestampPattern>
+                <lineSeparator>${SEPARATOR}</lineSeparator>
+                <!-- デフォルトだとアットマークがついてるので外す -->
+                <fieldNames>
+                    <timestamp>timestamp</timestamp>
+                    <version>version</version>
+                </fieldNames>
+            </encoder>
+        </appender>
+        <root level="ERROR">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+
+    <springProfile name="local">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <timeZone>${TIME_ZONE}</timeZone>
+                <timestampPattern>${TIMESTAMP_PATTERN}</timestampPattern>
+                <lineSeparator>${SEPARATOR}</lineSeparator>
+                <!-- デフォルトだとアットマークがついてるので外す -->
+                <fieldNames>
+                    <timestamp>timestamp</timestamp>
+                    <version>version</version>
+                </fieldNames>
+                <!-- 読みやすいようにPrettyする -->
+                <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+</configuration>
