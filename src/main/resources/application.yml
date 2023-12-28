@@ -1,6 +1,14 @@
+spring:
+  main:
+    banner-mode: off
+    log-startup-info: off
 logging:
   group:
-    tomcat: "org.apache.catalina,org.apache.coyote,org.apache.tomcat"
+    tomcat:
+      - org.apache.catalina
+      - org.apache.coyote
+      - org.apache.tomcat
+      - org.springframework.boot.web.embedded.tomcat
   level:
     tomcat: error
     web: error
